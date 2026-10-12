@@ -20,6 +20,7 @@ import gasolinerasRoutes from './routes/gasolineras';
 import preciosRoutes from './routes/precios';
 import usuariosRoutes from './routes/usuarios';
 import geocodingRoutes from './routes/geocoding';
+import adminRoutes from './routes/admin';
 
 // ===== CONFIGURACIÓN =====
 const PORT = process.env.PORT || 3000;
@@ -100,12 +101,19 @@ app.get('/health', (req: Request, res: Response) => {
  *   PUT    /api/usuarios/:id/badge         - Otorgar badge
  *   GET    /api/usuarios/:id/badges        - Obtener badges
  *   PUT    /api/usuarios/:id/rating        - Actualizar rating
+ *
+ * ADMIN (requiere Authorization: Bearer <ADMIN_TOKEN>):
+ *   GET    /api/admin/reportes/pendientes   - Reportes sin verificar
+ *   PUT    /api/admin/reportes/:id/aprobar  - Validar reporte
+ *   PUT    /api/admin/reportes/:id/rechazar - Rechazar reporte
+ *   POST   /api/admin/precios/manual        - Crear precio manual
  */
 
 app.use('/api/gasolineras', gasolinerasRoutes);
 app.use('/api/precios', preciosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/geocoding', geocodingRoutes);
+app.use('/api/admin', adminRoutes);
 
 // ===== RUTAS NO ENCONTRADAS =====
 app.use(notFoundHandler);
