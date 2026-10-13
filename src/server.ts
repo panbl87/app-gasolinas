@@ -102,11 +102,12 @@ app.get('/health', (req: Request, res: Response) => {
  *   GET    /api/usuarios/:id/badges        - Obtener badges
  *   PUT    /api/usuarios/:id/rating        - Actualizar rating
  *
- * ADMIN (requiere Authorization: Bearer <ADMIN_TOKEN>):
- *   GET    /api/admin/reportes/pendientes   - Reportes sin verificar
- *   PUT    /api/admin/reportes/:id/aprobar  - Validar reporte
- *   PUT    /api/admin/reportes/:id/rechazar - Rechazar reporte
- *   POST   /api/admin/precios/manual        - Crear precio manual
+ * ADMIN (requiere header X-Admin-Token: <ADMIN_TOKEN>):
+ *   GET    /api/admin/reportes/pendientes     - Reportes sin verificar
+ *   GET    /api/admin/reportes?estado=VALIDADO - Reportes por estado (+ stats hoy/semana)
+ *   POST   /api/admin/reportes/:id/validar    - Validar reporte
+ *   POST   /api/admin/reportes/:id/rechazar   - Rechazar reporte (body: { razon })
+ *   POST   /api/admin/reportes/crear-manual   - Crear precio manual
  */
 
 app.use('/api/gasolineras', gasolinerasRoutes);
