@@ -37,11 +37,14 @@
 
 - [ ] **Tabla `reportes_precios` en Supabase** (ver sección 6). Primero hay que decidir si se usa.
 - [ ] **Columna Ecopaís en la tabla resumen**: el filtro tiene Ecopaís, pero la tabla no muestra su precio.
-- [ ] **`VITE_API_URL`**: la app principal todavía tiene la IP fija `http://192.168.10.133:3000/api` en `App.jsx`, `CrearGasolineraForm.jsx`, `ReportarPrecio.jsx` y `ReportarPrecioModal.jsx`. El panel admin ya lee `VITE_API_URL`.
-- [ ] **`vercel.json` en el frontend** con un rewrite a `index.html`; sin eso, abrir `/admin` directamente en Vercel da 404.
-- [ ] **Colores de precio** (`getPriceColor` en `GasolineraList.jsx`): usa límites de $2.00 / $2.50, así que hoy todos los precios salen en rojo.
+- [x] **`VITE_API_URL`** (14 oct): toda la app lee la URL desde `src/config.js` (frontend). Se configura en el `.env` del frontend; ver `.env.example`. Sin `VITE_API_URL` usa `http://localhost:3000/api`.
+- [x] **`vercel.json` en el frontend** (14 oct): rewrite a `index.html` para que `/admin` funcione en Vercel.
+- [x] **Colores de precio** (14 oct): `getPriceColor` compara contra el promedio de ese combustible entre las gasolineras mostradas — verde si está 2 % o más por debajo, rojo si 2 % o más por encima, gris si está cerca del promedio.
+- [ ] **Configurar variables en Vercel**: en el proyecto del frontend, `VITE_API_URL` con la URL pública del backend (y `VITE_GOOGLE_MAPS_API_KEY`); en el del backend, las del `.env` (incluido `ADMIN_TOKEN`).
 - [ ] **Actualizar `database.sql`**: la base real tiene columnas que el archivo no tiene (`precios.fuente`, `precios.cantidad_reportes`, `gasolineras.estado`).
-- [ ] **Cambiar `ADMIN_TOKEN`** por uno difícil de adivinar antes de publicar, y configurarlo en Vercel.
+- [ ] **Cambiar `ADMIN_TOKEN`** por uno difícil de adivinar antes de publicar, y configurarlo en Vercel. Generarlo con:
+  `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+- [ ] **VPN**: con la VPN conectada, el backend no responde por la IP de red (`192.168.10.133`), solo por `localhost`. Para probar desde el celular, desconectar la VPN.
 - [ ] Probar en el navegador Validar / Rechazar / Crear Manual con un reporte real. Hoy solo se probó que las rutas responden y que validan los datos.
 
 ---
